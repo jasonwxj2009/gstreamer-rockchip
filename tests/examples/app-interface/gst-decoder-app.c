@@ -330,10 +330,11 @@ buffer_to_file (struct decoder *dec, GstBuffer * buf)
     printf ("  can use zero-copy: %s\n", yesno (is_dmabuf_mem));
     printf ("  video meta found: %s\n", yesno (meta != NULL));
     printf ("===================================\n");
+    g_snprintf (filename, sizeof (filename), "img%05d.%s", dec->frame,
+      pixfmt_str);
   }
 
-  g_snprintf (filename, sizeof (filename), "img%05d.%s", dec->frame,
-      pixfmt_str);
+  
   g_file_set_contents (filename, map_info.data, map_info.size, NULL);
 
   gst_buffer_unmap (buf, &map_info);
